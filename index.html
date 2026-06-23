@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Barra di Navigazione Principale -->
     <header class="main-header">
         <div class="logo">
             <span class="icon">🍽️</span> RistoManager <span class="version">v1.0</span>
@@ -21,7 +20,6 @@
     </header>
 
     <main class="container">
-        <!-- SEZIONE 1: PRENOTAZIONE TAVOLI -->
         <section id="prenotazioni" class="tab-content active">
             <div class="section-header">
                 <h2>Gestione Prenotazione Tavoli</h2>
@@ -29,7 +27,6 @@
             </div>
             
             <div class="grid-layout">
-                <!-- Form di Inserimento/Modifica -->
                 <div class="card">
                     <h3 id="form-prenotazione-title">Aggiungi Prenotazione</h3>
                     <form id="form-prenotazione" data-mode="insert" data-edit-id="">
@@ -37,16 +34,31 @@
                             <label for="p-nome">Nome Cliente</label>
                             <input type="text" id="p-nome" required placeholder="Es. Mario Rossi">
                         </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="p-tavolo">Numero Tavolo</label>
-                                <input type="number" id="p-tavolo" min="1" required placeholder="Es. 5">
+                        
+                        <div class="form-group">
+                            <label>Seleziona Tavolo</label>
+                            <div class="tables-grid" id="booking-tables-grid">
+                                <div class="table-block" data-table="1">Tavolo 1</div>
+                                <div class="table-block" data-table="2">Tavolo 2</div>
+                                <div class="table-block" data-table="3">Tavolo 3</div>
+                                <div class="table-block" data-table="4">Tavolo 4</div>
+                                <div class="table-block" data-table="5">Tavolo 5</div>
+                                <div class="table-block" data-table="6">Tavolo 6</div>
+                                <div class="table-block" data-table="7">Tavolo 7</div>
+                                <div class="table-block" data-table="8">Tavolo 8</div>
+                                <div class="table-block" data-table="9">Tavolo 9</div>
+                                <div class="table-block" data-table="10">Tavolo 10</div>
+                                <div class="table-block" data-table="11">Tavolo 11</div>
+                                <div class="table-block" data-table="12">Tavolo 12</div>
                             </div>
-                            <div class="form-group">
-                                <label for="p-coperti">Coperti</label>
-                                <input type="number" id="p-coperti" min="1" required placeholder="Es. 4">
-                            </div>
+                            <input type="hidden" id="p-tavolo" required>
                         </div>
+
+                        <div class="form-group">
+                            <label for="p-coperti">Coperti</label>
+                            <input type="number" id="p-coperti" min="1" required placeholder="Es. 4">
+                        </div>
+
                         <div class="form-group">
                             <label for="p-data">Data e Ora</label>
                             <input type="datetime-local" id="p-data" required>
@@ -58,7 +70,6 @@
                     </form>
                 </div>
 
-                <!-- Tabella di Visualizzazione -->
                 <div class="card table-container">
                     <h3>Elenco Prenotazioni</h3>
                     <table id="table-prenotazioni">
@@ -72,14 +83,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Generato dinamicamente via JS -->
-                        </tbody>
+                            </tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- SEZIONE 2: GESTIONE DEL MENU -->
         <section id="menu" class="tab-content">
             <div class="section-header">
                 <h2>Gestione del Menu</h2>
@@ -128,14 +137,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Generato dinamicamente via JS -->
-                        </tbody>
+                            </tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- SEZIONE 3: GESTIONE ORDINI -->
         <section id="ordini" class="tab-content">
             <div class="section-header">
                 <h2>Gestione Ordini Cucina</h2>
@@ -146,10 +153,26 @@
                 <div class="card">
                     <h3 id="form-ordini-title">Nuovo Ordine</h3>
                     <form id="form-ordini" data-mode="insert" data-edit-id="">
+                        
                         <div class="form-group">
-                            <label for="o-tavolo">Tavolo</label>
-                            <input type="number" id="o-tavolo" min="1" required placeholder="Es. 3">
+                            <label>Seleziona Tavolo</label>
+                            <div class="tables-grid" id="order-tables-grid">
+                                <div class="table-block" data-table="1">Tavolo 1</div>
+                                <div class="table-block" data-table="2">Tavolo 2</div>
+                                <div class="table-block" data-table="3">Tavolo 3</div>
+                                <div class="table-block" data-table="4">Tavolo 4</div>
+                                <div class="table-block" data-table="5">Tavolo 5</div>
+                                <div class="table-block" data-table="6">Tavolo 6</div>
+                                <div class="table-block" data-table="7">Tavolo 7</div>
+                                <div class="table-block" data-table="8">Tavolo 8</div>
+                                <div class="table-block" data-table="9">Tavolo 9</div>
+                                <div class="table-block" data-table="10">Tavolo 10</div>
+                                <div class="table-block" data-table="11">Tavolo 11</div>
+                                <div class="table-block" data-table="12">Tavolo 12</div>
+                            </div>
+                            <input type="hidden" id="o-tavolo" required>
                         </div>
+
                         <div class="form-group">
                             <label for="o-dettagli">Dettagli Comanda</label>
                             <textarea id="o-dettagli" rows="4" required placeholder="Es. 2x Carbonara, 1x Grigliata mista, 1x Acqua Frizzante"></textarea>
@@ -181,14 +204,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Generato dinamicamente via JS -->
-                        </tbody>
+                            </tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- SEZIONE 4: FEEDBACK CLIENTI -->
         <section id="feedback" class="tab-content">
             <div class="section-header">
                 <h2>Feedback dei Clienti</h2>
@@ -236,8 +257,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Generato dinamicamente via JS -->
-                        </tbody>
+                            </tbody>
                     </table>
                 </div>
             </div>
