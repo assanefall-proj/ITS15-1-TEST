@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RistoManager - Gestionale Ristorante</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Barra di Navigazione Principale -->
+    <header class="main-header">
+        <div class="logo">
+            <span class="icon">🍽️</span> RistoManager <span class="version">v1.0</span>
+        </div>
+        <nav class="nav-links">
+            <button class="nav-btn active" data-target="prenotazioni">📅 Prenotazioni</button>
+            <button class="nav-btn" data-target="menu">📜 Menu</button>
+            <button class="nav-btn" data-target="ordini">🛒 Ordini</button>
+            <button class="nav-btn" data-target="feedback">💬 Feedback</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- SEZIONE 1: PRENOTAZIONE TAVOLI -->
+        <section id="prenotazioni" class="tab-content active">
+            <div class="section-header">
+                <h2>Gestione Prenotazione Tavoli</h2>
+                <p>Inserisci, modifica o cancella le prenotazioni dei tavoli del ristorante.</p>
+            </div>
+            
+            <div class="grid-layout">
+                <!-- Form di Inserimento/Modifica -->
+                <div class="card">
+                    <h3 id="form-prenotazione-title">Aggiungi Prenotazione</h3>
+                    <form id="form-prenotazione" data-mode="insert" data-edit-id="">
+                        <div class="form-group">
+                            <label for="p-nome">Nome Cliente</label>
+                            <input type="text" id="p-nome" required placeholder="Es. Mario Rossi">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="p-tavolo">Numero Tavolo</label>
+                                <input type="number" id="p-tavolo" min="1" required placeholder="Es. 5">
+                            </div>
+                            <div class="form-group">
+                                <label for="p-coperti">Coperti</label>
+                                <input type="number" id="p-coperti" min="1" required placeholder="Es. 4">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-data">Data e Ora</label>
+                            <input type="datetime-local" id="p-data" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success" id="btn-p-submit">Salva Prenotazione</button>
+                            <button type="button" class="btn btn-secondary hidden" id="btn-p-cancel">Annulla</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tabella di Visualizzazione -->
+                <div class="card table-container">
+                    <h3>Elenco Prenotazioni</h3>
+                    <table id="table-prenotazioni">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Tavolo</th>
+                                <th>Coperti</th>
+                                <th>Data e Ora</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Generato dinamicamente via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 2: GESTIONE DEL MENU -->
+        <section id="menu" class="tab-content">
+            <div class="section-header">
+                <h2>Gestione del Menu</h2>
+                <p>Configura i piatti offerti, le categorie e i relativi prezzi di vendita.</p>
+            </div>
+
+            <div class="grid-layout">
+                <div class="card">
+                    <h3 id="form-menu-title">Aggiungi Piatto</h3>
+                    <form id="form-menu" data-mode="insert" data-edit-id="">
+                        <div class="form-group">
+                            <label for="m-piatto">Nome Piatto</label>
+                            <input type="text" id="m-piatto" required placeholder="Es. Spaghetti alla Carbonara">
+                        </div>
+                        <div class="form-group">
+                            <label for="m-categoria">Categoria</label>
+                            <select id="m-categoria" required>
+                                <option value="" disabled selected>Seleziona categoria...</option>
+                                <option value="Antipasti">Antipasti</option>
+                                <option value="Primi">Primi</option>
+                                <option value="Secondi">Secondi</option>
+                                <option value="Dolci">Dolci</option>
+                                <option value="Bevande">Bevande</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="m-prezzo">Prezzo (€)</label>
+                            <input type="number" id="m-prezzo" step="0.01" min="0" required placeholder="Es. 12.50">
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success" id="btn-m-submit">Aggiungi Piatto</button>
+                            <button type="button" class="btn btn-secondary hidden" id="btn-m-cancel">Annulla</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card table-container">
+                    <h3>Piatti nel Menu</h3>
+                    <table id="table-menu">
+                        <thead>
+                            <tr>
+                                <th>Piatto</th>
+                                <th>Categoria</th>
+                                <th>Prezzo</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Generato dinamicamente via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 3: GESTIONE ORDINI -->
+        <section id="ordini" class="tab-content">
+            <div class="section-header">
+                <h2>Gestione Ordini Cucina</h2>
+                <p>Invia le comande in tempo reale e monitora lo stato di preparazione.</p>
+            </div>
+
+            <div class="grid-layout">
+                <div class="card">
+                    <h3 id="form-ordini-title">Nuovo Ordine</h3>
+                    <form id="form-ordini" data-mode="insert" data-edit-id="">
+                        <div class="form-group">
+                            <label for="o-tavolo">Tavolo</label>
+                            <input type="number" id="o-tavolo" min="1" required placeholder="Es. 3">
+                        </div>
+                        <div class="form-group">
+                            <label for="o-dettagli">Dettagli Comanda</label>
+                            <textarea id="o-dettagli" rows="4" required placeholder="Es. 2x Carbonara, 1x Grigliata mista, 1x Acqua Frizzante"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="o-stato">Stato Ordine</label>
+                            <select id="o-stato" required>
+                                <option value="In Attesa">In Attesa</option>
+                                <option value="In Preparazione">In Preparazione</option>
+                                <option value="Completato">Completato</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success" id="btn-o-submit">Invia Ordine</button>
+                            <button type="button" class="btn btn-secondary hidden" id="btn-o-cancel">Annulla</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card table-container">
+                    <h3>Monitor Comande</h3>
+                    <table id="table-ordini">
+                        <thead>
+                            <tr>
+                                <th>Tavolo</th>
+                                <th>Comanda</th>
+                                <th>Stato</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Generato dinamicamente via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 4: FEEDBACK CLIENTI -->
+        <section id="feedback" class="tab-content">
+            <div class="section-header">
+                <h2>Feedback dei Clienti</h2>
+                <p>Raccogli le recensioni e i voti del servizio per migliorare l'esperienza del locale.</p>
+            </div>
+
+            <div class="grid-layout">
+                <div class="card">
+                    <h3 id="form-feedback-title">Rilascia Recensione</h3>
+                    <form id="form-feedback" data-mode="insert" data-edit-id="">
+                        <div class="form-group">
+                            <label for="f-nome">Nome Cliente (Opzionale)</label>
+                            <input type="text" id="f-nome" placeholder="Anonimo">
+                        </div>
+                        <div class="form-group">
+                            <label for="f-voto">Valutazione</label>
+                            <select id="f-voto" required>
+                                <option value="5">⭐⭐⭐⭐⭐ (Eccellente)</option>
+                                <option value="4">⭐⭐⭐⭐ (Ottimo)</option>
+                                <option value="3">⭐⭐⭐ (Buono)</option>
+                                <option value="2">⭐⭐ (Sufficiente)</option>
+                                <option value="1">⭐ (Scarso)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="f-commento">Commento</label>
+                            <textarea id="f-commento" rows="3" required placeholder="Scrivi qui la tua opinione sul servizio..."></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success" id="btn-f-submit">Invia Feedback</button>
+                            <button type="button" class="btn btn-secondary hidden" id="btn-f-cancel">Annulla</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card table-container">
+                    <h3>Recensioni Recenti</h3>
+                    <table id="table-feedback">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Voto</th>
+                                <th>Commento</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Generato dinamicamente via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 RistoManager Pro - Progetto Esame Metodologia SCRUM. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+/* ==========================================================================
+   STILI GENERALI E VARIABILI (Tavolozza elegante ardesia e ambra)
+   ========================================================================== */
+:root {
+    --primary-color: #2c3e50;
+    --primary-light: #34495e;
+    --accent-color: #e67e22;
+    --accent-hover: #d35400;
+    --bg-color: #f4f6f8;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --text-muted: #7f8c8d;
+    --border-color: #e2e8f0;
+    
+    --success-color: #2ecc71;
+    --warning-color: #f1c40f;
+    --danger-color: #e74c3c;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ==========================================================================
+   HEADER E NAVIGAZIONE
+   ========================================================================== */
+.main-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo .version {
+    font-size: 12px;
+    background-color: var(--accent-color);
+    padding: 2px 6px;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.nav-links {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: #bdc3c7;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    color: white;
+    background-color: var(--primary-light);
+}
+
+.nav-btn.active {
+    color: white;
+    background-color: var(--accent-color);
+}
+
+/* ==========================================================================
+   CONTENUTO PRINCIPALE E LAYOUT
+   ========================================================================== */
+.container {
+    flex: 1;
+    max-width: 1300px;
+    width: 100%;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+}
+
+.section-header {
+    margin-bottom: 25px;
+    border-left: 5px solid var(--accent-color);
+    padding-left: 15px;
+}
+
+.section-header h2 {
+    color: var(--primary-color);
+    font-size: 26px;
+}
+
+.section-header p {
+    color: var(--text-muted);
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .grid-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   COMPONENTI CARD E COSTRUZIONE FORM
+   ========================================================================== */
+.card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+}
+
+.card h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 18px;
+    border-bottom: 2px solid var(--bg-color);
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--primary-light);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 15px;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15);
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* ==========================================================================
+   PULSANTI E COMPONENTI INTERFACCIA
+   ========================================================================== */
+.btn {
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-success { background-color: var(--success-color); color: white; }
+.btn-success:hover { background-color: #27ae60; }
+
+.btn-secondary { background-color: var(--text-muted); color: white; }
+.btn-secondary:hover { background-color: #717d7e; }
+
+.btn-warning { background-color: var(--warning-color); color: #333; }
+.btn-warning:hover { background-color: #d4ac0d; }
+
+.btn-danger { background-color: var(--danger-color); color: white; }
+.btn-danger:hover { background-color: #c0392b; }
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.hidden { display: none !important; }
+
+/* ==========================================================================
+   TABELLE DATI
+   ========================================================================== */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 15px;
+}
+
+th {
+    background-color: #f8fafc;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Stati e Badge */
+.badge {
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.badge-waiting { background-color: #fadbd8; color: var(--danger-color); }
+.badge-progress { background-color: #d6eaf8; color: #2980b9; }
+.badge-completed { background-color: #d4efdf; color: var(--success-color); }
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+footer.main-footer {
+    background-color: var(--primary-color);
+    color: #bdc3c7;
+    text-center: center;
+    padding: 20px;
+    font-size: 14px;
+    margin-top: auto;
+    border-top: 3px solid var(--accent-color);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
