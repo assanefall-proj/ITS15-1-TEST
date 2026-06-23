@@ -61,6 +61,51 @@ function initAppCore() {
         saveAll(db);
     }
 
+    // --- FUNZIONI DI SUPPORTO SELEZIONE VISIVA TAVOLI ---
+    function selectVisualTable(gridId, tableNumber) {
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
+        grid.querySelectorAll(".table-block").forEach(block => {
+            if (block.getAttribute("data-table") == tableNumber) {
+                block.classList.add("selected");
+            } else {
+                block.classList.remove("selected");
+            }
+        });
+    }
+
+    function clearVisualTables(gridId) {
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
+        grid.querySelectorAll(".table-block").forEach(block => block.classList.remove("selected"));
+    }
+
+    // Gestione click griglia tavoli: PRENOTAZIONI
+    const bookingGrid = document.getElementById("booking-tables-grid");
+    const bookingInput = document.getElementById("p-tavolo");
+    if (bookingGrid && bookingInput) {
+        bookingGrid.querySelectorAll(".table-block").forEach(block => {
+            block.addEventListener("click", () => {
+                bookingGrid.querySelectorAll(".table-block").forEach(b => b.classList.remove("selected"));
+                block.classList.add("selected");
+                bookingInput.value = block.getAttribute("data-table");
+            });
+        });
+    }
+
+    // Gestione click griglia tavoli: ORDINI
+    const orderGrid = document.getElementById("order-tables-grid");
+    const orderInput = document.getElementById("o-tavolo");
+    if (orderGrid && orderInput) {
+        orderGrid.querySelectorAll(".table-block").forEach(block => {
+            block.addEventListener("click", () => {
+                orderGrid.querySelectorAll(".table-block").forEach(b => b.classList.remove("selected"));
+                block.classList.add("selected");
+                orderInput.value = block.getAttribute("data-table");
+            });
+        });
+    }
+
     // Render iniziale di tutte le tabelle (Operazione READ)
     renderAll(db);
 
@@ -72,10 +117,14 @@ function initAppCore() {
 
     formP.addEventListener("submit", (e) => {
         e.preventDefault();
+        if (!bookingInput.value) {
+            alert("Per favore, seleziona un tavolo dalla griglia grafica.");
+            return;
+        }
         const mode = formP.getAttribute("data-mode");
         const itemData = {
             nome: document.getElementById("p-nome").value,
-            tavolo: parseInt(document.getElementById("p-tavolo").value),
+            tavolo: parseInt(bookingInput.value),
             coperti: parseInt(document.getElementById("p-coperti").value),
             data: document.getElementById("p-data").value
         };
@@ -143,9 +192,13 @@ function initAppCore() {
 
     formO.addEventListener("submit", (e) => {
         e.preventDefault();
+        if (!orderInput.value) {
+            alert("Per favore, seleziona un tavolo dalla griglia grafica per l'ordine.");
+            return;
+        }
         const mode = formO.getAttribute("data-mode");
         const itemData = {
-            tavolo: parseInt(document.getElementById("o-tavolo").value),
+            tavolo: parseInt(orderInput.value),
             dettagli: document.getElementById("o-dettagli").value,
             stato: document.getElementById("o-stato").value
         };
@@ -218,7 +271,8 @@ function initAppCore() {
 
             if (entity === "prenotazioni") {
                 document.getElementById("p-nome").value = item.nome;
-                document.getElementById("p-tavolo").value = item.tavolo;
+                bookingInput.value = item.tavolo;
+                selectVisualTable("booking-tables-grid", item.tavolo); // Sincronizza selezione grafica
                 document.getElementById("p-coperti").value = item.coperti;
                 document.getElementById("p-data").value = item.data;
                 prepareForm(formP, cancelP, "Modifica Prenotazione", "Salva Modifiche", id);
@@ -228,7 +282,8 @@ function initAppCore() {
                 document.getElementById("m-prezzo").value = item.prezzo;
                 prepareForm(formM, cancelM, "Modifica Piatto", "Salva Modifiche", id);
             } else if (entity === "ordini") {
-                document.getElementById("o-tavolo").value = item.tavolo;
+                orderInput.value = item.tavolo;
+                selectVisualTable("order-tables-grid", item.tavolo); // Sincronizza selezione grafica
                 document.getElementById("o-dettagli").value = item.dettagli;
                 document.getElementById("o-stato").value = item.stato;
                 prepareForm(formO, cancelO, "Modifica Stato Ordine", "Aggiorna Ordine", id);
@@ -239,6 +294,28 @@ function initAppCore() {
                 prepareForm(formF, cancelF, "Modifica Recensione", "Salva Modifiche", id);
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    // Override sovrascritto di resetForm per pulire anche le selezioni grafiche
+    const originalResetForm = window.resetForm || resetForm;
+    window.resetForm = function(form, cancelBtn, titleText, submitText) {
+        form.reset();
+        form.setAttribute("data-mode", "insert");
+        form.setAttribute("data-edit-id", "");
+        const titleEl = document.getElementById(form.id + "-title");
+        const submitEl = form.querySelector("button[type='submit']");
+        if (titleEl) titleEl.innerText = titleText;
+        if (submitEl) submitEl.innerText = submitText;
+        cancelBtn.classList.add("hidden");
+
+        if (form.id === "form-prenotazione") {
+            bookingInput.value = "";
+            clearVisualTables("booking-tables-grid");
+        }
+        if (form.id === "form-ordini") {
+            orderInput.value = "";
+            clearVisualTables("order-tables-grid");
         }
     };
 }
@@ -297,7 +374,7 @@ function renderPrenotazioni(data) {
         tbody.innerHTML += `
             <tr>
                 <td><strong>${item.nome}</strong></td>
-                <td>Tavolo ${item.tavolo}</td>
+                <td><span class="badge" style="background:#f0f4f8; color:#2c3e50;">Tavolo ${item.tavolo}</span></td>
                 <td>${item.coperti} persone</td>
                 <td>${dateFormatted}</td>
                 <td>
@@ -365,5 +442,7 @@ function renderFeedback(data) {
                 </td>
             </tr>
         `;
+    });
+}
     });
 }
