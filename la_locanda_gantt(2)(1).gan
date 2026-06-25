@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Gestione Ristorante - La Locanda" company="Università" webLink="" view-date="2026-06-22" view-index="0" gantt-divider-location="374" resource-divider-location="322" version="3.3.3300" locale="it_IT">
+  <description>Progetto universitario SCRUM: applicazione web per la gestione di un ristorante (prenotazioni, menu, ordini, feedback). Node.js/Express backend + HTML/CSS/JS frontend, database SQLite.</description>
+  <view zooming-state="default:5" id="gantt-chart">
+    <field id="tpd3" name="Name" width="230" order="0"/>
+    <field id="tpd4" name="Begin date" width="75" order="1"/>
+    <field id="tpd5" name="End date" width="75" order="2"/>
+    <field id="tpd8" name="Duration" width="60" order="3"/>
+    <field id="tpd14" name="Resources" width="150" order="4"/>
+  </view>
+  <view id="resource-table">
+    <field id="0" name="Name" width="200" order="0"/>
+    <field id="1" name="Default role" width="86" order="1"/>
+  </view>
+  <!-- CALENDARIO -->
+  <calendars>
+    <day-types>
+      <day-type id="0"/>
+      <day-type id="1"/>
+      <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+      <only-show-weekends value="false"/>
+      <overriden-day-types/>
+      <days/>
+    </day-types>
+  </calendars>
+  <!-- ATTIVITÀ -->
+  <tasks empty-milestones="true">
+    <!-- ===== SPRINT 0 ===== -->
+    <task id="1" name="SPRINT 0 — Avvio e Pianificazione" color="#B08D3E" meeting="false" start="2026-06-22" duration="3" complete="0" expand="true">
+      <task id="2" name="Costituzione team e definizione ruoli SCRUM" color="#B08D3E" meeting="false" start="2026-06-22" duration="1" complete="0" expand="true"/>
+      <task id="3" name="Sprint Planning: Product Backlog e User Stories" color="#B08D3E" meeting="true" start="2026-06-23" duration="1" complete="0" expand="true"/>
+      <task id="4" name="Setup repository GitHub (repo + Project board)" color="#B08D3E" meeting="false" start="2026-06-24" duration="1" complete="0" expand="true"/>
+    </task>
+    <!-- ===== SPRINT 1 ===== -->
+    <task id="10" name="SPRINT 1 — Analisi e Progettazione" color="#7A1F2B" meeting="false" start="2026-06-25" duration="5" complete="0" expand="true">
+      <task id="11" name="Analisi dei requisiti e identificazione attori" color="#7A1F2B" meeting="false" start="2026-06-25" duration="1" complete="0" expand="true"/>
+      <task id="12" name="Use Case Diagram" color="#7A1F2B" meeting="false" start="2026-06-26" duration="1" complete="0" expand="true"/>
+      <task id="13" name="Class Diagram e schema del database" color="#7A1F2B" meeting="false" start="2026-06-29" duration="2" complete="0" expand="true"/>
+      <task id="14" name="Setup progetto backend Node.js/Express" color="#7A1F2B" meeting="false" start="2026-06-29" duration="2" complete="0" expand="true"/>
+      <task id="15" name="Sequence Diagram (flussi principali)" color="#7A1F2B" meeting="false" start="2026-07-01" duration="1" complete="0" expand="true"/>
+    </task>
+    <!-- ===== SPRINT 2 ===== -->
+    <task id="20" name="SPRINT 2 — Sviluppo Core (Prenotazioni e Menu)" color="#243A2D" meeting="false" start="2026-07-02" duration="5" complete="0" expand="true">
+      <task id="21" name="Implementazione database e modello dati (sql.js)" color="#243A2D" meeting="false" start="2026-07-02" duration="1" complete="0" expand="true"/>
+      <task id="22" name="API CRUD Prenotazione Tavoli (/api/tavoli)" color="#243A2D" meeting="false" start="2026-07-03" duration="1" complete="0" expand="true"/>
+      <task id="23" name="API CRUD Gestione Menu (/api/menu)" color="#243A2D" meeting="false" start="2026-07-03" duration="1" complete="0" expand="true"/>
+      <task id="24" name="Frontend: viste Prenotazioni e Menu (HTML/CSS/JS)" color="#243A2D" meeting="false" start="2026-07-06" duration="2" complete="0" expand="true"/>
+      <task id="25" name="Test unitari Prenotazioni e Menu (Jest + Supertest)" color="#243A2D" meeting="false" start="2026-07-08" duration="1" complete="0" expand="true"/>
+    </task>
+    <!-- ===== SPRINT 3 ===== -->
+    <task id="30" name="SPRINT 3 — Completamento (Ordini e Feedback)" color="#3F6B4A" meeting="false" start="2026-07-09" duration="5" complete="0" expand="true">
+      <task id="31" name="API CRUD Gestione Ordini con dettagli (/api/ordini)" color="#3F6B4A" meeting="false" start="2026-07-09" duration="2" complete="0" expand="true"/>
+      <task id="32" name="API CRUD Feedback Clienti (/api/feedback)" color="#3F6B4A" meeting="false" start="2026-07-09" duration="1" complete="0" expand="true"/>
+      <task id="33" name="Frontend: viste Ordini (comanda) e Feedback" color="#3F6B4A" meeting="false" start="2026-07-13" duration="2" complete="0" expand="true"/>
+      <task id="34" name="Integrazione end-to-end client-server" color="#3F6B4A" meeting="false" start="2026-07-15" duration="1" complete="0" expand="true"/>
+      <task id="35" name="Test unitari Ordini e Feedback" color="#3F6B4A" meeting="false" start="2026-07-15" duration="1" complete="0" expand="true"/>
+    </task>
+    <!-- ===== SPRINT 4 ===== -->
+    <task id="40" name="SPRINT 4 — Testing e Documentazione" color="#5C1620" meeting="false" start="2026-07-16" duration="5" complete="0" expand="true">
+      <task id="41" name="Test di integrazione end-to-end completi" color="#5C1620" meeting="false" start="2026-07-16" duration="1" complete="0" expand="true"/>
+      <task id="42" name="Correzione bug e ottimizzazioni" color="#5C1620" meeting="false" start="2026-07-17" duration="1" complete="0" expand="true"/>
+      <task id="43" name="Documentazione tecnica e manuale utente" color="#5C1620" meeting="false" start="2026-07-20" duration="2" complete="0" expand="true"/>
+      <task id="44" name="Revisione e aggiornamento diagrammi UML" color="#5C1620" meeting="false" start="2026-07-22" duration="1" complete="0" expand="true"/>
+    </task>
+    <!-- ===== SPRINT 5 ===== -->
+    <task id="50" name="SPRINT 5 — Rifinitura e Sprint Review" color="#1C2B22" meeting="false" start="2026-07-23" duration="3" complete="0" expand="true">
+      <task id="51" name="Preparazione presentazione finale (PowerPoint)" color="#1C2B22" meeting="false" start="2026-07-23" duration="1" complete="0" expand="true"/>
+      <task id="52" name="Prove tecniche della demo" color="#1C2B22" meeting="false" start="2026-07-24" duration="1" complete="0" expand="true"/>
+      <task id="53" name="Sprint Review: demo finale e presentazione" color="#1C2B22" meeting="true" start="2026-07-27" duration="1" complete="0" expand="true"/>
+    </task>
+  </tasks>
+  <!-- RISORSE (ruoli SCRUM) -->
+  <resources>
+    <resource id="1" name="Analista/Progettista (Responsabile UML)" function="1" contacts="" phone=""/>
+    <resource id="2" name="Sviluppatore 1" function="2" contacts="" phone=""/>
+    <resource id="3" name="Sviluppatore 2" function="2" contacts="" phone=""/>
+    <resource id="4" name="Tester/Documentatore" function="3" contacts="" phone=""/>
+    <resource id="5" name="Responsabile Demo e Presentazione" function="4" contacts="" phone=""/>
+  </resources>
+  <!-- ALLOCAZIONI -->
+  <allocations>
+    <allocation task-id="2" resource-id="1" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="2" resource-id="2" function="Default:0" responsible="false" load="100"/>
+    <allocation task-id="2" resource-id="3" function="Default:0" responsible="false" load="100"/>
+    <allocation task-id="2" resource-id="4" function="Default:0" responsible="false" load="100"/>
+    <allocation task-id="2" resource-id="5" function="Default:0" responsible="false" load="100"/>
+    <allocation task-id="3" resource-id="1" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="3" resource-id="2" function="Default:0" responsible="false" load="100"/>
+    <allocation task-id="3" resource-id="3" function="Default:0" responsible="false" load="100"/>
+    <allocation task-id="3" resource-id="4" function="Default:0" responsible="false" load="100"/>
+    <allocation task-id="3" resource-id="5" function="Default:0" responsible="false" load="100"/>
+    <allocation task-id="4" resource-id="2" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="4" resource-id="3" function="Default:0" responsible="false" load="50"/>
+    <allocation task-id="11" resource-id="1" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="12" resource-id="1" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="13" resource-id="1" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="14" resource-id="2" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="14" resource-id="3" function="Default:0" responsible="false" load="100"/>
+    <allocation task-id="15" resource-id="1" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="21" resource-id="2" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="21" resource-id="3" function="Default:0" responsible="false" load="100"/>
+    <allocation task-id="22" resource-id="2" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="23" resource-id="3" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="24" resource-id="2" function="Default:0" responsible="true" load="50"/>
+    <allocation task-id="24" resource-id="3" function="Default:0" responsible="false" load="50"/>
+    <allocation task-id="25" resource-id="4" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="31" resource-id="2" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="32" resource-id="3" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="33" resource-id="2" function="Default:0" responsible="true" load="50"/>
+    <allocation task-id="33" resource-id="3" function="Default:0" responsible="false" load="50"/>
+    <allocation task-id="34" resource-id="2" function="Default:0" responsible="true" load="50"/>
+    <allocation task-id="34" resource-id="3" function="Default:0" responsible="false" load="50"/>
+    <allocation task-id="35" resource-id="4" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="41" resource-id="4" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="42" resource-id="2" function="Default:0" responsible="true" load="50"/>
+    <allocation task-id="42" resource-id="3" function="Default:0" responsible="false" load="50"/>
+    <allocation task-id="43" resource-id="4" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="44" resource-id="1" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="51" resource-id="5" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="52" resource-id="5" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="52" resource-id="2" function="Default:0" responsible="false" load="50"/>
+    <allocation task-id="52" resource-id="3" function="Default:0" responsible="false" load="50"/>
+    <allocation task-id="53" resource-id="5" function="Default:0" responsible="true" load="100"/>
+    <allocation task-id="53" resource-id="1" function="Default:0" responsible="false" load="100"/>
+    <allocation task-id="53" resource-id="2" function="Default:0" responsible="false" load="100"/>
+    <allocation task-id="53" resource-id="3" function="Default:0" responsible="false" load="100"/>
+    <allocation task-id="53" resource-id="4" function="Default:0" responsible="false" load="100"/>
+  </allocations>
+  <roles roleset-name="Default"/>
+  <roles roleset-name="SoftwareDevelopment"/>
+</project>
