@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RistoManager - Portale Ristorante</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">
+            <span class="icon">🍽️</span> RistoManager <span class="version">v1.1</span>
+        </div>
+        
+        <nav class="nav-links" id="nav-cliente">
+            <button class="nav-btn active" data-target="view-prenota">📅 Prenota Tavolo</button>
+            <button class="nav-btn" data-target="view-menu-cliente">📜 Il Nostro Menu</button>
+            <button class="nav-btn" data-target="view-ordina-cliente">🛒 Ordina Piatti</button>
+            <button class="nav-btn" data-target="view-feedback-cliente">💬 Recensioni</button>
+            <button class="nav-btn login-trigger-btn" data-target="view-login">🔒 Area Riservata</button>
+        </nav>
+
+        <nav class="nav-links hidden" id="nav-admin">
+            <span class="admin-badge">Pannello Admin</span>
+            <button class="nav-btn" data-target="view-admin-prenotazioni">📅 Gestione Prenotazioni</button>
+            <button class="nav-btn" data-target="view-admin-menu">📜 Gestione Menu</button>
+            <button class="nav-btn" data-target="view-admin-ordini">🛒 Gestione Ordini</button>
+            <button class="nav-btn" data-target="view-admin-feedback">💬 Moderazione Recensioni</button>
+            <button class="nav-btn logout-btn" id="btn-logout">🚪 Esci</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- VISTA CLIENTE: PRENOTAZIONE -->
+        <section id="view-prenota" class="tab-content active">
+            <div class="section-header">
+                <h2>Prenota il tuo Tavolo</h2>
+                <p>Seleziona graficamente un tavolo disponibile, compila i dati e conferma la prenotazione istantaneamente.</p>
+            </div>
+            <div class="grid-layout">
+                <div class="card">
+                    <h3>Modulo di Prenotazione</h3>
+                    <form id="form-cliente-prenotazione">
+                        <div class="form-group">
+                            <label>Seleziona un Tavolo sulla Mappa</label>
+                            <div class="tables-grid" id="client-booking-grid">
+                                <div class="table-block" data-table="1">Tavolo 1</div>
+                                <div class="table-block" data-table="2">Tavolo 2</div>
+                                <div class="table-block" data-table="3">Tavolo 3</div>
+                                <div class="table-block" data-table="4">Tavolo 4</div>
+                                <div class="table-block" data-table="5">Tavolo 5</div>
+                                <div class="table-block" data-table="6">Tavolo 6</div>
+                                <div class="table-block" data-table="7">Tavolo 7</div>
+                                <div class="table-block" data-table="8">Tavolo 8</div>
+                                <div class="table-block" data-table="9">Tavolo 9</div>
+                                <div class="table-block" data-table="10">Tavolo 10</div>
+                                <div class="table-block" data-table="11">Tavolo 11</div>
+                                <div class="table-block" data-table="12">Tavolo 12</div>
+                            </div>
+                            <input type="hidden" id="cp-tavolo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cp-nome">Nome Prenotazione</label>
+                            <input type="text" id="cp-nome" placeholder="Es. Mario Rossi" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cp-coperti">Numero Coperti</label>
+                                <input type="number" id="cp-coperti" min="1" max="10" value="2" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cp-data">Orario / Data</label>
+                                <input type="datetime-local" id="cp-data" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Conferma Prenotazione 🚀</button>
+                    </form>
+                </div>
+                <div class="card info-box">
+                    <h3>Regolamento di Prenotazione</h3>
+                    <ul>
+                        <li>I tavoli selezionati rimangono riservati per un massimo di 15 minuti di ritardo.</li>
+                        <li>Per eventi con più di 10 coperti, contattare direttamente la direzione.</li>
+                        <li>Le prenotazioni inserite sono registrate sul database locale in tempo reale.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA CLIENTE: MENU -->
+        <section id="view-menu-cliente" class="tab-content">
+            <div class="section-header">
+                <h2>Il Nostro Menu Digitale</h2>
+                <p>Esplora le specialità della nostra cucina preparate con ingredienti freschi e di stagione.</p>
+            </div>
+            <div class="card table-container">
+                <h3>Piatti Disponibili</h3>
+                <table id="client-table-menu">
+                    <thead>
+                        <tr>
+                            <th>Categoria</th>
+                            <th>Nome Piatto</th>
+                            <th>Prezzo</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- VISTA CLIENTE: ORDINA DIRETTAMENTE -->
+        <section id="view-ordina-cliente" class="tab-content">
+            <div class="section-header">
+                <h2>Ordina direttamente dal Tavolo</h2>
+                <p>Seleziona il tuo tavolo e i piatti che desideri ricevere. Invieremo la comanda direttamente in cucina!</p>
+            </div>
+            <div class="grid-layout">
+                <div class="card">
+                    <h3>Invia il tuo Ordine</h3>
+                    <form id="form-cliente-ordine">
+                        <div class="form-group">
+                            <label>Seleziona il tuo Tavolo</label>
+                            <div class="tables-grid" id="client-order-grid">
+                                <div class="table-block" data-table="1">Tavolo 1</div>
+                                <div class="table-block" data-table="2">Tavolo 2</div>
+                                <div class="table-block" data-table="3">Tavolo 3</div>
+                                <div class="table-block" data-table="4">Tavolo 4</div>
+                                <div class="table-block" data-table="5">Tavolo 5</div>
+                                <div class="table-block" data-table="6">Tavolo 6</div>
+                                <div class="table-block" data-table="7">Tavolo 7</div>
+                                <div class="table-block" data-table="8">Tavolo 8</div>
+                                <div class="table-block" data-table="9">Tavolo 9</div>
+                                <div class="table-block" data-table="10">Tavolo 10</div>
+                                <div class="table-block" data-table="11">Tavolo 11</div>
+                                <div class="table-block" data-table="12">Tavolo 12</div>
+                            </div>
+                            <input type="hidden" id="co-tavolo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="co-piatto-select">Scegli un piatto dal Menu</label>
+                            <div class="form-row" style="grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 10px;">
+                                <select id="co-piatto-select"></select>
+                                <button type="button" class="btn btn-warning" id="btn-add-to-cart">Aggiungi</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Piatti Selezionati (Riepilogo)</label>
+                            <textarea id="co-dettagli" rows="4" readonly required placeholder="Il tuo carrello è vuoto. Aggiungi i piatti dal menu sopra."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Invia Ordine in Cucina</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>Menu di Riferimento</h3>
+                    <div class="table-container">
+                        <table id="client-order-table-menu">
+                            <thead>
+                                <tr>
+                                    <th>Piatto</th>
+                                    <th>Prezzo</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA CLIENTE: RECENSIONI -->
+        <section id="view-feedback-cliente" class="tab-content">
+            <div class="section-header">
+                <h2>Cosa Dicono di Noi</h2>
+                <p>Lascia una recensione sul nostro servizio o leggi le opinioni degli altri clienti.</p>
+            </div>
+            <div class="grid-layout">
+                <div class="card">
+                    <h3>Lascia un Feedback</h3>
+                    <form id="form-cliente-feedback">
+                        <div class="form-group">
+                            <label for="cf-nome">Il tuo Nome</label>
+                            <input type="text" id="cf-nome" placeholder="Inserisci il tuo nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-voto">Valutazione (Stelle)</label>
+                            <select id="cf-voto" required>
+                                <option value="5">⭐⭐⭐⭐⭐ (Eccellente)</option>
+                                <option value="4">⭐⭐⭐⭐ (Ottimo)</option>
+                                <option value="3">⭐⭐⭐ (Buono)</option>
+                                <option value="2">⭐⭐ (Sufficiente)</option>
+                                <option value="1">⭐ (Scarso)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-commento">Commento</label>
+                            <textarea id="cf-commento" rows="3" placeholder="Raccontaci la tua esperienza..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-accent">Invia Recensione</button>
+                    </form>
+                </div>
+                <div class="card table-container">
+                    <h3>Recensioni Recenti</h3>
+                    <table id="client-table-feedback">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Voto</th>
+                                <th>Commento</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- AREA DI LOGIN AMMINISTRATORE -->
+        <section id="view-login" class="tab-content">
+            <div class="section-header">
+                <h2>Autenticazione Sistema Gestione</h2>
+                <p>Inserisci le credenziali del personale autorizzato per accedere al pannello operativo Scrum di controllo.</p>
+            </div>
+            <div style="max-width: 450px; margin: 0 auto;" class="card">
+                <h3>Login Amministratore</h3>
+                <form id="form-login-admin">
+                    <div class="form-group">
+                        <label for="login-user">Username Personale</label>
+                        <input type="text" id="login-user" placeholder="Es. admin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-pass">Password di Sicurezza</label>
+                        <input type="password" id="login-pass" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Effettua l'Accesso</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- VISTE AMMINISTRATORE: GESTIONE PRENOTAZIONI -->
+        <section id="view-admin-prenotazioni" class="tab-content">
+            <div class="section-header">
+                <h2>Tabellone Prenotazioni Attive</h2>
+                <p>Pannello di controllo per visualizzare, registrare o rimuovere i tavoli prenotati dal database.</p>
+            </div>
+            <div class="grid-layout">
+                <div class="card">
+                    <h3>Inserimento Manuale Admin</h3>
+                    <form id="form-admin-prenotazione">
+                        <div class="form-group">
+                            <label>Seleziona Tavolo (Assegnazione Rapida)</label>
+                            <div class="tables-grid" id="admin-booking-grid">
+                                <div class="table-block" data-table="1">Tavolo 1</div>
+                                <div class="table-block" data-table="2">Tavolo 2</div>
+                                <div class="table-block" data-table="3">Tavolo 3</div>
+                                <div class="table-block" data-table="4">Tavolo 4</div>
+                                <div class="table-block" data-table="5">Tavolo 5</div>
+                                <div class="table-block" data-table="6">Tavolo 6</div>
+                                <div class="table-block" data-table="7">Tavolo 7</div>
+                                <div class="table-block" data-table="8">Tavolo 8</div>
+                                <div class="table-block" data-table="9">Tavolo 9</div>
+                                <div class="table-block" data-table="10">Tavolo 10</div>
+                                <div class="table-block" data-table="11">Tavolo 11</div>
+                                <div class="table-block" data-table="12">Tavolo 12</div>
+                            </div>
+                            <input type="hidden" id="ap-tavolo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ap-nome">Cliente</label>
+                            <input type="text" id="ap-nome" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ap-coperti">Coperti</label>
+                                <input type="number" id="ap-coperti" min="1" max="10" value="4" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ap-data">Data</label>
+                                <input type="datetime-local" id="ap-data" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Aggiungi Prenotazione</button>
+                    </form>
+                </div>
+                <div class="card table-container">
+                    <h3>Registro Storico Prenotazioni</h3>
+                    <table id="admin-table-prenotazioni">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Tavolo</th>
+                                <th>Coperti</th>
+                                <th>Data ed Ora</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTE AMMINISTRATORE: GESTIONE MENU -->
+        <section id="view-admin-menu" class="tab-content">
+            <div class="section-header">
+                <h2>Configurazione Piatti Menu</h2>
+                <p>Modifica, aggiungi o elimina i prodotti presenti all'interno del menu digitale mostrato ai clienti.</p>
+            </div>
+            <div class="grid-layout">
+                <div class="card">
+                    <h3>Nuovo Elemento Menu</h3>
+                    <form id="form-admin-menu">
+                        <div class="form-group">
+                            <label for="am-categoria">Categoria Piatto</label>
+                            <select id="am-categoria" required>
+                                <option value="Antipasti">Antipasti</option>
+                                <option value="Primi Piatti">Primi Piatti</option>
+                                <option value="Secondi Piatti">Secondi Piatti</option>
+                                <option value="Dolci & Bevande">Dolci & Bevande</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="am-piatto">Nome della Pietanza</label>
+                            <input type="text" id="am-piatto" placeholder="Es. Carbonara di Mare" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="am-prezzo">Prezzo (€)</label>
+                            <input type="number" id="am-prezzo" step="0.50" min="0" placeholder="Es. 12.50" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Salva nel Menu</button>
+                    </form>
+                </div>
+                <div class="card table-container">
+                    <h3>Anteprima e Gestione Voci</h3>
+                    <table id="admin-table-menu">
+                        <thead>
+                            <tr>
+                                <th>Categoria</th>
+                                <th>Piatto</th>
+                                <th>Prezzo</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTE AMMINISTRATORE: GESTIONE ORDINI -->
+        <section id="view-admin-ordini" class="tab-content">
+            <div class="section-header">
+                <h2>Monitor Flussi Cucina (Comande)</h2>
+                <p>Gestione dello stato di avanzamento delle comande. Passa da in attesa a completato in un click.</p>
+            </div>
+            <div class="grid-layout">
+                <div class="card">
+                    <h3>Inserimento Rapido Comanda</h3>
+                    <form id="form-admin-ordine">
+                        <div class="form-group">
+                            <label>Seleziona Tavolo</label>
+                            <div class="tables-grid" id="admin-order-grid">
+                                <div class="table-block" data-table="1">Tavolo 1</div>
+                                <div class="table-block" data-table="2">Tavolo 2</div>
+                                <div class="table-block" data-table="3">Tavolo 3</div>
+                                <div class="table-block" data-table="4">Tavolo 4</div>
+                                <div class="table-block" data-table="5">Tavolo 5</div>
+                                <div class="table-block" data-table="6">Tavolo 6</div>
+                                <div class="table-block" data-table="7">Tavolo 7</div>
+                                <div class="table-block" data-table="8">Tavolo 8</div>
+                                <div class="table-block" data-table="9">Tavolo 9</div>
+                                <div class="table-block" data-table="10">Tavolo 10</div>
+                                <div class="table-block" data-table="11">Tavolo 11</div>
+                                <div class="table-block" data-table="12">Tavolo 12</div>
+                            </div>
+                            <input type="hidden" id="ao-tavolo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ao-dettagli">Composizione Ordine (Piatti / Quantità)</label>
+                            <textarea id="ao-dettagli" rows="3" placeholder="Es. 2x Carbonara, 1x Acqua Frizzante" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Invia in Cucina</button>
+                    </form>
+                </div>
+                <div class="card table-container">
+                    <h3>Monitor Comande Attive</h3>
+                    <table id="admin-table-ordini">
+                        <thead>
+                            <tr>
+                                <th>Tavolo</th>
+                                <th>Comanda</th>
+                                <th>Stato</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-admin-feedback" class="tab-content">
+            <div class="section-header">
+                <h2>Moderazione Recensioni Clienti</h2>
+                <p>Monitora il grado di soddisfazione del ristorante e cancella eventuali recensioni inappropriate.</p>
+            </div>
+            <div class="card table-container">
+                <h3>Elenco Completo Feedback Registrati</h3>
+                <table id="admin-table-feedback">
+                    <thead>
+                        <tr>
+                            <th>Autore</th>
+                            <th>Valutazione</th>
+                            <th>Commento</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 RistoManager Pro - Sistema Integrato Multiruolo. Progetto Esame Scrum.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
